@@ -1,6 +1,8 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import play.db.jpa.Model;
 
@@ -13,13 +15,18 @@ public class User extends Model {
 	public String fullName;
 	public boolean isAdmin;
 	
+	@ManyToOne
+	@JoinColumn(name="ACCOUNT_ID")
+	public Account account;
 	
-	public User(String email, String password,String fullName,
+	
+	public User(String email, String password,String fullName, Account account,
 			boolean isAdmin) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.fullName = fullName;
+		this.account = account;
 		this.isAdmin = isAdmin;
 	}
 	

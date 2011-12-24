@@ -1,3 +1,4 @@
+import models.Account;
 import models.User;
 
 import org.junit.Before;
@@ -18,7 +19,10 @@ public class UserTest extends UnitTest {
 	@Test
 	public void userCanBeCreated() {
 		
-		new User("rahulj51@gmail.com", "secret", "Rahul Jain", true).save();
+		Account account = new Account("myAccount");
+		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		account.addUser(user);
+		account.save();
 		
 		User rahul = User.find("byEmail", "rahulj51@gmail.com").first();
 		
@@ -29,19 +33,25 @@ public class UserTest extends UnitTest {
 	@Test
 	public void validUserCanLogin() {
 		
-		new User("rahulj51@gmail.com", "secret", "Rahul Jain", true).save();
+		Account account = new Account("myAccount");
+		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		account.addUser(user);
+		account.save();
 		
-		User user = User.login("rahulj51@gmail.com", "secret");
+		User rahul = User.login("rahulj51@gmail.com", "secret");
 		
-		assertNotNull(user);
-		assertEquals("rahulj51@gmail.com", user.email);		
+		assertNotNull(rahul);
+		assertEquals("rahulj51@gmail.com", rahul.email);		
 		
 	}
 	
 	@Test
 	public void InvalidUserCanNotLogin() {
 		
-		new User("rahulj51@gmail.com", "secret", "Rahul Jain", true).save();
+		Account account = new Account("myAccount");
+		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		account.addUser(user);
+		account.save();
 		
 		assertNull(User.login("rahulj51@gmail.com", "secretive"));
 		assertNull(User.login("rahulj566@gmail.com", "secret"));
@@ -50,11 +60,13 @@ public class UserTest extends UnitTest {
 	@Test
 	public void ExistingUserCanBeDeleted() {
 
-		User rahul = new User("rahulj51@gmail.com", "secret", "Rahul Jain", true);
-		rahul.save();
+		Account account = new Account("myAccount");
+		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		account.addUser(user);
+		account.save();
 		
 		
-		rahul.delete();
+		user.delete();
 		
 		assertNull(User.find("byEmail", "rahulj51@gmail.com").first());
 		assertEquals(0, User.count());
@@ -63,18 +75,20 @@ public class UserTest extends UnitTest {
 	@Test
 	public void ExistingUserCanBeUpdated() {
 
-		User rahul = new User("rahulj51@gmail.com", "secret", "Rahul Jain", true);
-		rahul.save();	
+		Account account = new Account("myAccount");
+		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		account.addUser(user);
+		account.save();	
 		
-		rahul.isAdmin = false;
-		rahul.password = "notsoSecretAnymore";
+		user.isAdmin = false;
+		user.password = "notsoSecretAnymore";
 		
-		rahul.save();
+		account.save();
 		
-		User user = User.find("byEmail", "rahulj51@gmail.com").first();
+		User rahul = User.find("byEmail", "rahulj51@gmail.com").first();
 		
-		assertFalse(user.isAdmin);
-		assertEquals("notsoSecretAnymore", user.password);
+		assertFalse(rahul.isAdmin);
+		assertEquals("notsoSecretAnymore", rahul.password);
 	}
 
 }

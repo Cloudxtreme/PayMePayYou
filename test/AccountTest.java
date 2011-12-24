@@ -10,34 +10,40 @@ import play.test.UnitTest;
 
 public class AccountTest extends UnitTest {
 	
-	User user;
 	
     @Before
     public void setup() {
         Fixtures.deleteDatabase();
         
-		//create user to associate with account
-		user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", true);
-		//user.save();        
     }
     
     
 	@Test
 	public void AccountCanBeCreated() {
+
 		
-		new Account("myAccount", user).save();
-		Account account = Account.find("byName", "myAccount").first();
+		Account account = new Account("myAccount");
+		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		account.addUser(user);
+		account.save();
 		
-		assertNotNull(account);
-		assertEquals("myAccount", account.name);
-		assertEquals("Rahul Jain", account.owner.fullName);
+		Account savedAccount = Account.find("byName", "myAccount").first();
+		
+		assertNotNull(savedAccount);
+		assertEquals("myAccount", savedAccount.name);
+		assertEquals(1, savedAccount.users.size());
+		assertEquals("Rahul Jain", savedAccount.users.get(0).fullName);
 	}    
 	
 	@Test
 	public void ExistingAccountCanBeDeleted() {
 
-		Account account = new Account("myAccount", user).save();
-		long userId = account.owner.id;
+		Account account = new Account("myAccount");
+		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		account.addUser(user);
+		account.save();
+		
+		long userId = account.users.get(0).id;
 		account.delete();
 		
 		assertNull(Account.find("byName", "myAccount").first());
@@ -49,14 +55,21 @@ public class AccountTest extends UnitTest {
 	@Test
 	public void ExistingAccountCanBeUpdated() {
 
-		Account account = new Account("myAccount", user).save();
+		Account account = new Account("myAccount");
+		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		account.addUser(user);
+		account.save();
+		
 		long id = account.id;
 
 		account.name = "myNewAccount";
+		user = new User("bob@gmail.com", "password", "Bob Dale", account, false);
+		account.addUser(user);
 		account.save();
 		
 		Account savedAccount = Account.findById(id);
 		assertEquals("myNewAccount", savedAccount.name);
+		assertEquals(2, savedAccount.users.size());
 	}	
 
 }
