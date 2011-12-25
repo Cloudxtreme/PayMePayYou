@@ -27,8 +27,6 @@ public class ExpensePoolTest extends UnitTest {
     	expensePool.account = account;
     	account.addExpensePool(expensePool);
 		account.save();		
-
-		
     }	
     
     
