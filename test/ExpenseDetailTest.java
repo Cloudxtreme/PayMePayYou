@@ -5,6 +5,7 @@ import models.ExpenseDetail;
 import models.ExpensePool;
 import models.User;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,7 +41,12 @@ public class ExpenseDetailTest extends UnitTest {
     	account.addExpensePool(expensePool);
     	
 		account.save();		
-    }	
+    }
+    
+    @After
+    public void tearDown() {
+    	Fixtures.deleteDatabase();
+    }
 	
     @Test
     public void ExpenseDetailCanBeCreated() {
@@ -67,6 +73,23 @@ public class ExpenseDetailTest extends UnitTest {
 		
 		ExpenseDetail ex = ExpenseDetail.findById(expenseDetailId);
 		assertNull(ex);
-	    assertEquals(0, account.expensePools.get(0).expenses.get(0).expenseDetails.size());
+	    assertEquals(0, account.expensePools.get(0).expenses.get(0).expenseDetails.size());  //TODO refactor
 	}  	    
+	
+	
+    @Test
+	public void ExistingExpenseDetailCanBeUpdated() {
+
+		expensePool = account.expensePools.get(0);
+		expense = expensePool.expenses.get(0);
+		expenseDetail = expense.expenseDetails.get(0);
+		long expenseDetailId = expenseDetail.id;
+
+		expenseDetail.contribution = 20.0d;
+		expenseDetail.due = 10.0d;
+		account.save();
+		
+		ExpenseDetail exDetail = ExpenseDetail.findById(expenseDetailId);
+		assertEquals(20.0d, exDetail.contribution, 0.000001);
+	}	
 }
