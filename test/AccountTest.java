@@ -1,7 +1,7 @@
 import models.Account;
 import models.User;
 
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 
 import play.test.Fixtures;
@@ -11,10 +11,9 @@ import play.test.UnitTest;
 public class AccountTest extends UnitTest {
 	
 	
-    @Before
-    public void setup() {
+    @After
+    public void tearDown() {
         Fixtures.deleteDatabase();
-        
     }
     
     

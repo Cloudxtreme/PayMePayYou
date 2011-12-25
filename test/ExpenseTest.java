@@ -3,6 +3,7 @@ import models.Expense;
 import models.ExpensePool;
 import models.User;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,13 +13,6 @@ import play.test.UnitTest;
 
 public class ExpenseTest extends UnitTest {
 
-	//expense contains
-	//name
-	//pool id
-	//amount
-	//userid
-	
-	
 	Account account;
 	ExpensePool expensePool;
 	Expense expense;
@@ -35,7 +29,7 @@ public class ExpenseTest extends UnitTest {
 		expensePool = new ExpensePool("dailyExpenses");
     	expensePool.account = account;
     	
-    	Expense expense = new Expense("Apple Store", expensePool, 10.0d);
+    	expense = new Expense("Apple Store", expensePool, 10.0d);
     	expensePool.addExpense(expense);
     	
     	account.addExpensePool(expensePool);
@@ -43,6 +37,11 @@ public class ExpenseTest extends UnitTest {
 		account.save();		
     }		
 	
+    @After
+    public void tearDown() {
+        Fixtures.deleteDatabase();
+    }	    
+
     @Test
     public void ExpenseCanBeCreated() {
     	
@@ -52,22 +51,23 @@ public class ExpenseTest extends UnitTest {
 		assertEquals("Apple Store", pool.expenses.get(0).name);
     }
     
-	@Test
+    @Test
 	public void ExpenseCanBeDeleted() {
-
+		account = Account.findById(account.id);
 		expensePool = account.expensePools.get(0);
 		expense = expensePool.expenses.get(0);
 		long expenseId = expense.id;
+
 		expensePool.removeExpense(expense);
 		account.save();
 		
 		Expense ex = Expense.findById(expenseId);
 		assertNull(ex);
-		assertEquals(0, account.expensePools.get(0).expenses.size());
+	    assertEquals(0, account.expensePools.get(0).expenses.size());
 	}  
 	
-	@Test
-	public void ExistingAccountCanBeUpdated() {
+    @Test
+	public void ExistingExpenseCanBeUpdated() {
 
 		expensePool = account.expensePools.get(0);
 		expense = expensePool.expenses.get(0);

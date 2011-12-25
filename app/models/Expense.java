@@ -1,8 +1,13 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
 
@@ -16,6 +21,9 @@ public class Expense extends Model {
 	public ExpensePool expensePool;
 	
 	public double amount;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="expense", orphanRemoval=true)
+	public List<ExpenseDetail> expenseDetails = new ArrayList<ExpenseDetail>(0);
 
 	public Expense(String name, ExpensePool pool, double amount) {
 		super();
@@ -24,6 +32,12 @@ public class Expense extends Model {
 		this.amount = amount;
 	}
 	
+	public void addExpenseDetail(ExpenseDetail expenseDetail) {
+		this.expenseDetails.add(expenseDetail);
+	}
 	
+	public boolean removeExpenseDetail(ExpenseDetail expenseDetail) {
+		return expenseDetails.remove(expenseDetail);
+	}	
 	
 }

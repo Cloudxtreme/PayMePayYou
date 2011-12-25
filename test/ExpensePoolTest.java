@@ -2,6 +2,7 @@ import models.Account;
 import models.ExpensePool;
 import models.User;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,6 +29,11 @@ public class ExpensePoolTest extends UnitTest {
     	account.addExpensePool(expensePool);
 		account.save();		
     }	
+    
+    @After
+    public void tearDown() {
+        Fixtures.deleteDatabase();
+    }    
     
     
     @Test
