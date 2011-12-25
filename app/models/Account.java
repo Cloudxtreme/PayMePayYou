@@ -16,10 +16,10 @@ public class Account extends Model {
 
 	public String name;
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="account")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="account",  orphanRemoval=true)
 	public List<User> users = new ArrayList<User>(0);
 	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="account")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="account", orphanRemoval=true)
 	public List<ExpensePool> expensePools = new ArrayList<ExpensePool>(0);
 
 	public Account(String name) {
@@ -35,5 +35,12 @@ public class Account extends Model {
 		this.users.add(user);
 	}	
 	
+	public boolean removeExpensePool(ExpensePool pool) {
+		return expensePools.remove(pool);
+	}
+	
+	public boolean removeUser(User user) {
+		return users.remove(user);
+	}	
 	
 }
