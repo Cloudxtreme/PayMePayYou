@@ -10,20 +10,22 @@ import play.test.UnitTest;
 
 public class UserTest extends UnitTest {
 	
+	Account account;
+	User user;
 
     @Before
     public void setup() {
         Fixtures.deleteDatabase();
+        
+		account = new Account("myAccount");
+		user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		account.addUser(user);
+		account.save();
+        
     }	
 	
 	@Test
 	public void userCanBeCreated() {
-		
-		Account account = new Account("myAccount");
-		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
-		account.addUser(user);
-		account.save();
-		
 		User rahul = User.find("byEmail", "rahulj51@gmail.com").first();
 		
 		assertNotNull(rahul);
@@ -32,11 +34,6 @@ public class UserTest extends UnitTest {
 	
 	@Test
 	public void validUserCanLogin() {
-		
-		Account account = new Account("myAccount");
-		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
-		account.addUser(user);
-		account.save();
 		
 		User rahul = User.login("rahulj51@gmail.com", "secret");
 		
@@ -48,11 +45,6 @@ public class UserTest extends UnitTest {
 	@Test
 	public void InvalidUserCanNotLogin() {
 		
-		Account account = new Account("myAccount");
-		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
-		account.addUser(user);
-		account.save();
-		
 		assertNull(User.login("rahulj51@gmail.com", "secretive"));
 		assertNull(User.login("rahulj566@gmail.com", "secret"));
 	}	
@@ -60,13 +52,10 @@ public class UserTest extends UnitTest {
 	@Test
 	public void ExistingUserCanBeDeleted() {
 
-		Account account = new Account("myAccount");
-		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
-		account.addUser(user);
+		user = account.users.get(0);
+		account.removeUser(user);
 		account.save();
 		
-		
-		user.delete();
 		
 		assertNull(User.find("byEmail", "rahulj51@gmail.com").first());
 		assertEquals(0, User.count());
@@ -75,11 +64,6 @@ public class UserTest extends UnitTest {
 	@Test
 	public void ExistingUserCanBeUpdated() {
 
-		Account account = new Account("myAccount");
-		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
-		account.addUser(user);
-		account.save();	
-		
 		user.isAdmin = false;
 		user.password = "notsoSecretAnymore";
 		
