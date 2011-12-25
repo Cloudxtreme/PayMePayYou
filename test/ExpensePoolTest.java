@@ -12,6 +12,7 @@ import play.test.UnitTest;
 public class ExpensePoolTest extends UnitTest {
 	
 	Account account;
+	ExpensePool expensePool;
 	
     @Before
     public void setup() {
@@ -21,8 +22,11 @@ public class ExpensePoolTest extends UnitTest {
 		account = new Account("myAccount");		
 		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
 		account.addUser(user); 
-		account.save();
-		
+
+    	expensePool = new ExpensePool("dailyExpenses");
+    	expensePool.account = account;
+    	account.addExpensePool(expensePool);
+		account.save();		
 
 		
     }	
@@ -31,16 +35,35 @@ public class ExpensePoolTest extends UnitTest {
     @Test
     public void ExpensePoolCanBeCreated() {
     	
-    	ExpensePool expensePool = new ExpensePool("dailyExpenses");
-    	expensePool.account = account;
-    	account.addExpensePool(expensePool);
-		account.save();
-		
 		Account savedAccount = Account.findById(account.id);
 		assertEquals(1, savedAccount.expensePools.size());
 		assertEquals("dailyExpenses", savedAccount.expensePools.get(0).name);
     }
     
+	@Test
+	public void ExpensePoolCanBeDeleted() {
+
+		expensePool = account.expensePools.get(0);
+		long poolId = expensePool.id;
+		account.removeExpensePool(expensePool);
+		account.save();
+		
+		ExpensePool ep = ExpensePool.findById(poolId);
+		assertNull(ep);
+		assertEquals(0, account.expensePools.size());
+	}
 	
+	@Test
+	public void ExistingAccountCanBeUpdated() {
+
+		expensePool = account.expensePools.get(0);
+		long poolId = expensePool.id;
+
+		expensePool.name = "tripToRome";
+		account.save();
+		
+		ExpensePool savedPool = ExpensePool.findById(poolId);
+		assertEquals("tripToRome", savedPool.name);
+	}		
 
 }
