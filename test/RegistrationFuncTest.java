@@ -1,4 +1,9 @@
 
+import java.util.HashMap;
+import java.util.Map;
+
+import models.User;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +33,22 @@ public class RegistrationFuncTest extends FunctionalTest {
         assertContentType("text/html", response);
         assertCharset(play.Play.defaultWebEncoding, response);	
 
+	}
+	
+	@Test
+	public void testThatValidNewUserIsSuccessFullyRegistered() {
+		
+		Map<String, String> parameters = new HashMap();
+		parameters.put("fullName", "Rahul Jain");
+		parameters.put("email", "joeblog@gmail.com");
+		parameters.put("password", "secret");
+		Response response = POST("/SignUp/signupUser");
+        assertIsOk(response);
+		
+		User user = User.find("byEmail", "joeblog@gmail.com").first();
+		assertNotNull(user);
+		assertEquals("Rahul Jain", user.fullName);
+		
 	}
 
 }
