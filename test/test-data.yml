@@ -1,21 +1,21 @@
 # test data
 
 Account(rahulAccount):
-	name: myAccount
+    name: myAccount
 
 
 User(rahul):
-	email: rahulj51@gmail.com
-	password: secret
-	fullName: Rahul Jain
-	isAdmin: true
-	account: rahulAccount
+    email: rahulj51@gmail.com
+    password: secret
+    fullName: Rahul Jain
+    isAdmin: true
+    account: rahulAccount
 
 User(jay):
-	email: jay@gmail.com
-	password: secret
-	fullName Jay joe
-	isAdmin: false
-	account:rahulAccount
-			
-	
+    email: jay@gmail.com
+    password: secret
+    fullName: Jay joe
+    isAdmin: false
+    account: rahulAccount
+            
+     
