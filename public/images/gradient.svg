@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="10px" height="10px" viewBox="0 0 10 10" enable-background="new 0 0 10 10" xml:space="preserve">
+<g id="white_overlay">
+  <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="5" y1="0" x2="5" y2="6.5" gradientTransform="matrix(1 0 0 1.5 0 0)">
+		<stop offset="0" style="stop-color:#FFFFFF;stop-opacity:0.2"/>
+		<stop offset="0.5" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	</linearGradient>
+	<rect fill="url(#SVGID_1_)" width="10" height="10"/>
+</g>
+<g id="gradient">
+  <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="5" y1="0" x2="5" y2="6.5" gradientTransform="matrix(1 0 0 1.5459 0 0)">
+		<stop offset="0.5" style="stop-color:#000000;stop-opacity:0"/>
+		<stop offset="0.8" style="stop-color:#000000;stop-opacity:0.05"/>
+		<stop offset="1" style="stop-color:#000000;stop-opacity:0.13"/>
+	</linearGradient>
+	<rect fill="url(#SVGID_2_)" width="10" height="10"/>
+  <linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="-38.2217" y1="17.3984" x2="-28.2217" y2="17.3984" gradientTransform="matrix(1 0 0 0.8333 38.2217 -9)">
+		<stop offset="0" style="stop-color:#000000;stop-opacity:0"/>
+		<stop offset="1" style="stop-color:#000000;stop-opacity:0.03"/>
+	</linearGradient>
+	<path fill="url(#SVGID_3_)" d="M10,10H0V1c0,0,1.176,6.5,6,6.5c3.632,0,4-4.5,4-4.5V10z"/>
+</g>
+</svg>
