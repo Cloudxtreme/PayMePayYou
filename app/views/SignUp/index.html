@@ -1,6 +1,23 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'PayMePayYou - Signup' /}
 
-Hello from signup 
-#{welcome /}
+<div id="wrapper">
+    <div id="header">
+		<img src="@{'/public/images/logo2.png'}" alt="" />
+	</div>
+	<div id="formpanel">
+		<div id="loginForm">
+			<h2>Create an account</h2>
+			<form>
+			<label for="fullName" class="inputLabel">Full Name:</label>
+			<input type="text" id="fullName" />
+			<label for="loginId" class="inputLabel">Email:</label>
+			<input type="text" id="loginId" />
+			<label for="password" class="inputLabel">Password:</label>
+			<input type="password" id="password" />	
+			<input type="submit" name="Login" value="Start sharing"></input>	
+			</form>
+		</div>
+	</div>
+</div>
 
