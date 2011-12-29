@@ -4,15 +4,33 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import play.data.validation.Email;
+import play.data.validation.Match;
+import play.data.validation.MaxSize;
+import play.data.validation.MinSize;
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
 public class User extends Model {
 
+	@Required
+	@Email
 	public String email;
+	
+	@Required
+	@MinSize(5)
+	@MaxSize(20)
+	@Match("[A-Za-z0-9]")  //modify later
 	public String password;
+	
 	private String hash;
+	
+	@Required
+	@MinSize(3)
+	@MaxSize(60)
 	public String fullName;
+	
 	public boolean isAdmin;
 	
 	@ManyToOne
