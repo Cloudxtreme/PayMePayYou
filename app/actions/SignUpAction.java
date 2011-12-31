@@ -3,6 +3,7 @@ package actions;
 import models.Account;
 import models.AccountBuilder;
 import models.ExpensePool;
+import models.ExpensePoolBuilder;
 import models.User;
 import models.UserBuilder;
 
@@ -10,14 +11,16 @@ public class SignUpAction {
 	
 	AccountBuilder accountBuilder;
 	UserBuilder userBuilder;
+	ExpensePoolBuilder expensePoolBuilder;
 	
 	public SignUpAction() {};
 	
-	public SignUpAction(AccountBuilder accountBuilder) {
+	public SignUpAction(AccountBuilder accountBuilder, ExpensePoolBuilder expensePoolBuilder) {
 		this.accountBuilder = accountBuilder;
+		this.expensePoolBuilder = expensePoolBuilder;
 	}
 	
-    public void signupUser(User user) throws Exception {
+    public Account signupUser(User user) throws Exception {
 
     	User existingUser = User.find("byEmail", user.email).first();
     	
@@ -32,16 +35,12 @@ public class SignUpAction {
     		user.account = newAccount;
     		
     		//create an expense pool
-    		/*ExpensePool newExpensePool = new ExpensePool("default");
+    		expensePoolBuilder.setName("Default Pool");
+    		ExpensePool newExpensePool = expensePoolBuilder.build();
     		newExpensePool.account = newAccount;
-    		newAccount.expensePools.add(newExpensePool);*/
+    		newAccount.expensePools.add(newExpensePool);
     		
-    		newAccount.save();
-    		
+    		return newAccount.save();
     	}
-    		
     }	
-    
-    
-
 }

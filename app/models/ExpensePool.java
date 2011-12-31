@@ -29,6 +29,11 @@ public class ExpensePool extends Model {
 		this.name = name;
 	}
 	
+	public ExpensePool(ExpensePoolBuilder builder) {
+		super();
+		this.name = builder.getName();
+	}	
+	
 	public void addExpense(Expense expense) {
 		this.expenses.add(expense);
 	}
