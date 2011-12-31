@@ -37,6 +37,15 @@ public class User extends Model {
 	@JoinColumn(name="ACCOUNT_ID")
 	public Account account;
 	
+
+	public User(String email, String password,String fullName,boolean isAdmin) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.fullName = fullName;
+		this.isAdmin = isAdmin;
+	}
+	
 	
 	public User(String email, String password,String fullName, Account account,
 			boolean isAdmin) {

@@ -1,3 +1,5 @@
+package unit.model;
+
 import models.Account;
 import models.Expense;
 import models.ExpensePool;

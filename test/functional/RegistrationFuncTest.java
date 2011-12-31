@@ -1,3 +1,5 @@
+package functional;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +37,6 @@ public class RegistrationFuncTest extends FunctionalTest {
 
 	}
 	
-	@Test
 	public void testThatValidNewUserIsSuccessFullyRegistered() {
 		
 		Map<String, String> parameters = new HashMap();
