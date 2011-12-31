@@ -24,6 +24,11 @@ public class Account extends Model {
 		super();
 		this.name = name;
 	}
+	
+	public Account(AccountBuilder builder) {
+		this.name = builder.getName();
+	}
+	
 
 	public void addExpensePool(ExpensePool pool) {
 		this.expensePools.add(pool);

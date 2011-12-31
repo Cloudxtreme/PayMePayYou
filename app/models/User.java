@@ -57,6 +57,15 @@ public class User extends Model {
 		this.isAdmin = isAdmin;
 	}
 	
+	public User(UserBuilder builder) {
+		super();
+		this.email = builder.email;
+		this.password = builder.password;
+		this.fullName = builder.fullName;
+		this.isAdmin = builder.isAdmin;		
+	}
+	
+	
 	public static User login(String email, String password) {
 		return find("byEmailAndPassword", email, password).first();
 	}

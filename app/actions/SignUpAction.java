@@ -4,10 +4,12 @@ import models.Account;
 import models.AccountBuilder;
 import models.ExpensePool;
 import models.User;
+import models.UserBuilder;
 
 public class SignUpAction {
 	
 	AccountBuilder accountBuilder;
+	UserBuilder userBuilder;
 	
 	public SignUpAction() {};
 	
@@ -22,15 +24,17 @@ public class SignUpAction {
     	if (existingUser != null)
     		throw new Exception("User " + user.email + " already exists");
     	else {
+    		
     		//create an account
-    		Account newAccount = accountBuilder.build("Account of " + user.fullName);
+    		accountBuilder.setName("account of " + user.fullName);
+    		Account newAccount = accountBuilder.build();
     		newAccount.users.add(user);
     		user.account = newAccount;
     		
     		//create an expense pool
-    		ExpensePool newExpensePool = new ExpensePool("default");
+    		/*ExpensePool newExpensePool = new ExpensePool("default");
     		newExpensePool.account = newAccount;
-    		newAccount.expensePools.add(newExpensePool);
+    		newAccount.expensePools.add(newExpensePool);*/
     		
     		newAccount.save();
     		

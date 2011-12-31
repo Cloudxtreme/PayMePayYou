@@ -2,3 +2,5 @@
 
 require:
     - play
+    - org.powermock -> powermock-api-mockito 1.4.9
+    - org.powermock -> powermock-module-junit4 1.4.9    

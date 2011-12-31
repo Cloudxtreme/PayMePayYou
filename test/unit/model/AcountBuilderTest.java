@@ -12,9 +12,9 @@ public class AcountBuilderTest extends UnitTest {
 	@Test
 	public void testBuildWithAccountName() {
 
-		AccountBuilder builder = new AccountBuilder();
+		AccountBuilder builder = new AccountBuilder().setName("my account");
 		
-		Account account = builder.build("my account");
+		Account account = builder.build();
 		assertNotNull(account);
 		assertEquals("my account", account.name);
 		
