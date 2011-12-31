@@ -69,6 +69,13 @@ public class User extends Model {
 	public static User login(String email, String password) {
 		return find("byEmailAndPassword", email, password).first();
 	}
+
+
+	@Override
+	public String toString() {
+		return "User [email=" + email + ", password=" + password
+				+ ", fullName=" + fullName + ", isAdmin=" + isAdmin + "]";
+	}
 	
 	
 	

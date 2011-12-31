@@ -63,7 +63,7 @@ public class SignUpActionTest extends UnitTest {
 	        PowerMockito.verifyStatic(times(1));
 	        User.find("byEmail", "sunny@etsy.com");
 	        
-	        verify(mockAccountBuilder, times(1)).setName("account of " + user.fullName);
+	        verify(mockAccountBuilder, times(1)).setName("Account of " + user.fullName);
 	        verify(mockAccountBuilder, times(1)).build();
 	        verify(mockUsers, times(1)).add(user);
 	        assertEquals(mockAccount, user.account);

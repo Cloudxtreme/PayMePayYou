@@ -9,25 +9,25 @@
 		<div id="loginForm">
 			<h2>Create an account</h2>
 			<form>
-			#{form @signupUser()}
+			#{form @SignUp.signupUser()}
 				#{field 'user.fullName'}
         			<p class="${field.errorClass}">				
-						<label for="fullName" class="inputLabel">Full Name:</label>
-						<input type="text" id="fullName" />
+						<label for="user.fullName" class="inputLabel">Full Name:</label>
+						<input type="text" id="user.fullName" />
 						<span class="error">${field.error}</span>
 					</p>
 				#{/field}		
 				#{field 'user.email'}
         			<p class="${field.errorClass}">					
-						<label for="loginId" class="inputLabel">Email:</label>
-						<input type="text" id="loginId" />
+						<label for="user.email" class="inputLabel">Email:</label>
+						<input type="text" id="user.email" />
 						<span class="error">${field.error}</span>
 					</p>						
 				#{/field}					
 				#{field 'user.password'}
         			<p class="${field.errorClass}">					
-						<label for="password" class="inputLabel">Password:</label>
-						<input type="password" id="password" />
+						<label for="user.password" class="inputLabel">Password:</label>
+						<input type="password" id="user.password" />
 						<span class="error">${field.error}</span>
 					</p>						
 				#{/field}						

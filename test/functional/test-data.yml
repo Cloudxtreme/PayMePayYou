@@ -17,5 +17,10 @@ User(jay):
     fullName: Jay joe
     isAdmin: false
     account: rahulAccount
+    
+
+ExpensePool(default):
+    name: Default Pool
+    account: rahulAccount    
             
      

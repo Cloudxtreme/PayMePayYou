@@ -1,6 +1,6 @@
 # Application dependencies
 
 require:
-    - play
+    - play 2.4
     - org.powermock -> powermock-api-mockito 1.4.9
     - org.powermock -> powermock-module-junit4 1.4.9    

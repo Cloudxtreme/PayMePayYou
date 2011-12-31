@@ -24,12 +24,12 @@ public class SignUpAction {
 
     	User existingUser = User.find("byEmail", user.email).first();
     	
-    	if (existingUser != null)
+    	if (existingUser != null) 
     		throw new Exception("User " + user.email + " already exists");
     	else {
     		
     		//create an account
-    		accountBuilder.setName("account of " + user.fullName);
+    		accountBuilder.setName("Account of " + user.fullName);
     		Account newAccount = accountBuilder.build();
     		newAccount.users.add(user);
     		user.account = newAccount;
@@ -40,6 +40,7 @@ public class SignUpAction {
     		newExpensePool.account = newAccount;
     		newAccount.expensePools.add(newExpensePool);
     		
+    		System.out.println("saving...");
     		return newAccount.save();
     	}
     }	
