@@ -9,8 +9,8 @@ import actions.SignUpAction;
 
 public class SignUp extends Controller {
 
-    public static void index() {
-    	render();
+    public static void index(User user) {
+    	render(user);
     }
     
     public static void signupUser(@Valid User user) {
@@ -20,8 +20,9 @@ public class SignUp extends Controller {
         if(validation.hasErrors()) {
         	System.out.println("validation errors" + validation.errorsMap());
             params.flash(); 
-            //validation.keep(); 
-            render("@index",user);
+            validation.keep(); 
+            index(user);
+            //render("@index",user);
         }    	
     	
     	SignUpAction signUpAction = new SignUpAction(new AccountBuilder(), new ExpensePoolBuilder());
