@@ -8,26 +8,25 @@
 	<div id="formpanel">
 		<div id="loginForm">
 			<h2>Create an account</h2>
-			<form>
 			#{form @SignUp.signupUser()}
 				#{field 'user.fullName'}
-        			<p class="${field.errorClass}">				
+        			<p>				
 						<label for="user.fullName" class="inputLabel">Full Name:</label>
-						<input type="text" id="user.fullName" />
+						<input type="text" id="user.fullName" name="user.fullName" value="${user?.fullName}" class="${field.errorClass}"/>
 						<span class="error">${field.error}</span>
 					</p>
 				#{/field}		
 				#{field 'user.email'}
-        			<p class="${field.errorClass}">					
+        			<p>					
 						<label for="user.email" class="inputLabel">Email:</label>
-						<input type="text" id="user.email" />
+						<input type="text" id="user.email" name="user.email" value="${user?.email}" class="${field.errorClass}"/>
 						<span class="error">${field.error}</span>
 					</p>						
 				#{/field}					
 				#{field 'user.password'}
-        			<p class="${field.errorClass}">					
+        			<p>					
 						<label for="user.password" class="inputLabel">Password:</label>
-						<input type="password" id="user.password" />
+						<input type="password" id="user.password" name="user.password" class="${field.errorClass}"/>
 						<span class="error">${field.error}</span>
 					</p>						
 				#{/field}						

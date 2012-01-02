@@ -20,8 +20,8 @@ public class SignUp extends Controller {
         if(validation.hasErrors()) {
         	System.out.println("validation errors" + validation.errorsMap());
             params.flash(); 
-            validation.keep(); 
-            index();
+            //validation.keep(); 
+            render("@index",user);
         }    	
     	
     	SignUpAction signUpAction = new SignUpAction(new AccountBuilder(), new ExpensePoolBuilder());
