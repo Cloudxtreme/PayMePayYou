@@ -1,0 +1,56 @@
+*{ You can use plain selenium command using the selenium tag }*
+
+#{fixture delete:'all', load:'functional/test-data.yml' /}
+
+#{selenium 'check login page'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/login')
+    waitForPageToLoad(1000)
+    assertNotTitle('Application error')
+    assertTitle('PayMePayYou - Login')
+#{/selenium}
+
+#{selenium 'missing password'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/login')
+    waitForPageToLoad(1000)
+    clickAndWait('Login')
+    assertTextPresent('Password is required')
+    assertTitle('PayMePayYou - Login')    
+#{/selenium}
+
+#{selenium 'missing email address'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/login')
+    waitForPageToLoad(1000)
+    clickAndWait('Login')
+    assertTextPresent('Email address is required')
+    assertTitle('PayMePayYou - Login')    
+#{/selenium}
+
+#{selenium 'invalid userid or password'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/login')
+    waitForPageToLoad(1000)
+    type('email', 'someone@something.com')
+    type('password','something')
+    clickAndWait('Login')
+    assertTextPresent('Invalid user id or password')
+    assertTitle('PayMePayYou - Login')    
+#{/selenium}
+
+#{selenium 'valid login'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/login')
+    waitForPageToLoad(1000)
+    type('email','rahulj51@gmail.com')
+    type('password','secret')
+    clickAndWait('Login')
+    assertTextPresent('Welcome, Rahul Jain')
+    assertTitle('PayMePayYou - Login Success')    
+#{/selenium}
