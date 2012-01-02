@@ -24,8 +24,8 @@ public class AccountTest extends UnitTest {
 
 		
 		Account account = new Account("myAccount");
-		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
-		account.addUser(user);
+		User user = getDummyUser(account);
+		account.addUser(getDummyUser(account));
 		account.save();
 		
 		Account savedAccount = Account.find("byName", "myAccount").first();
@@ -33,14 +33,15 @@ public class AccountTest extends UnitTest {
 		assertNotNull(savedAccount);
 		assertEquals("myAccount", savedAccount.name);
 		assertEquals(1, savedAccount.users.size());
-		assertEquals("Rahul Jain", savedAccount.users.get(0).fullName);
-	}    
-	
+		assertEquals(user.fullName, savedAccount.users.get(0).fullName);
+	}
+
+
 	@Test
 	public void ExistingAccountCanBeDeleted() {
 
 		Account account = new Account("myAccount");
-		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		User user = getDummyUser(account);
 		account.addUser(user);
 		account.save();
 		
@@ -57,20 +58,30 @@ public class AccountTest extends UnitTest {
 	public void ExistingAccountCanBeUpdated() {
 
 		Account account = new Account("myAccount");
-		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		User user = getDummyUser(account);
 		account.addUser(user);
 		account.save();
 		
 		long id = account.id;
 
 		account.name = "myNewAccount";
-		user = new User("bob@gmail.com", "password", "Bob Dale", account, false);
+		user = getAnotherDummyUser(account);
 		account.addUser(user);
 		account.save();
 		
 		Account savedAccount = Account.findById(id);
 		assertEquals("myNewAccount", savedAccount.name);
 		assertEquals(2, savedAccount.users.size());
+	}
+
+
+	User getAnotherDummyUser(Account account) {
+		return new User("bob@gmail.com", "password", "Bob Dale", account, false);
 	}	
+	
+	User getDummyUser(Account account) {
+		User user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		return user;
+	} 	
 
 }
