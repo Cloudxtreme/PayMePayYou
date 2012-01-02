@@ -32,7 +32,6 @@ public class SignUp extends Controller {
     		render("SignUp/success.html");
     	}
     	catch(Exception e) {
-    		e.printStackTrace();
     		flash.error(e.getMessage());
             params.flash();
             validation.keep(); 
