@@ -2,15 +2,22 @@ package functional;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import models.User;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import play.mvc.Http;
 import play.mvc.Http.Response;
 import play.test.Fixtures;
 import play.test.FunctionalTest;
+import play.utils.Utils;
 
-public class LoginFunctionalTest extends FunctionalTest {
+public class LoginFunctionalTest extends BaseFunctionalTest {
 
 	@Before
 	public void setup() {
@@ -30,5 +37,42 @@ public class LoginFunctionalTest extends FunctionalTest {
         assertContentType("text/html", response);
         assertCharset(play.Play.defaultWebEncoding, response);	
 	}
+	
+	@Test
+	public void testThatValidUserIsSuccessFullyLoggedIn() {
+		
+		Map<String, String> parameters = getDummyInputParameters();
+		
+		Response response = POST("/login/loginuser", parameters);
+        assertIsOk(response);
+        
+        //success flashed
+        assertCookieContains("PLAY_FLASH", "Welcome,", response);
+        
+        //user details added to session
+        assertCookieContains("PLAY_SESSION", "user.id", response);
+	}
+	
+	@Test
+	public void testThatUserWithNoExistingAccountCanNotLogin() {
+		
+		Map<String, String> parameters = getDummyInputParameters();
+		parameters.put("email", "joeblogs@gmail.com"); //non existent
+		
+		Response response = POST("/login/loginuser", parameters);
+        assertStatus(Http.StatusCode.FOUND, response);
+        
+        //error flashed
+        assertCookieContains("PLAY_FLASH", "Invalid user id or password", response);        
+        
+	}
+
+	Map<String, String> getDummyInputParameters() {
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("email", "rahulj51@gmail.com");
+		parameters.put("password", "secret");
+		
+		return parameters;
+	}		
 
 }
