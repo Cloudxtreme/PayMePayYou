@@ -61,7 +61,7 @@ public class SignUpActionTest extends UnitTest {
 			Account savedAccount = signUpAction.signupUser(user);
 			
 	        PowerMockito.verifyStatic(times(1));
-	        User.find("byEmail", "sunny@etsy.com");
+	        User.find("byEmail", user.email);
 	        
 	        verify(mockAccountBuilder, times(1)).setName("Account of " + user.fullName);
 	        verify(mockAccountBuilder, times(1)).build();
@@ -97,7 +97,7 @@ public class SignUpActionTest extends UnitTest {
 		} catch (Exception e) {
 			
 		    PowerMockito.verifyStatic(times(1));
-	        User.find("byEmail", "sunny@etsy.com");
+	        User.find("byEmail", user.email);
 		}
 	}
 	
