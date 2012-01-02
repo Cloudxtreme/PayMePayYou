@@ -28,12 +28,14 @@ public class LoginActionTest extends UnitTest {
 	public void setup() {
 		loginAction = new LoginAction();
 		mockUser = mock(User.class);
-		PowerMockito.mockStatic(User.class);
-		when (User.login(anyString(), anyString())).thenReturn(mockUser);		
+
 	}
 	
 	@Test
 	public void validUserCanLogin() {
+
+		PowerMockito.mockStatic(User.class);
+		when (User.login(anyString(), anyString())).thenReturn(mockUser);				
 		
 		String email = "sunny@etsy.com";
 		String password = "hersecret";
@@ -46,10 +48,28 @@ public class LoginActionTest extends UnitTest {
 			PowerMockito.verifyStatic(times(1));
 			User.login(email, password);
 		}catch(Exception e) {
-			fail("Exception throwsn - " + e);
+			fail("Exception thrown - " + e);
 		}
-		
-		
 	}
+	
+	@Test
+	public void invalidUserCanNotLogin() {
+		
+		
+		PowerMockito.mockStatic(User.class);
+		when (User.login(anyString(), anyString())).thenReturn(null);		
+		
+		String email = "sunny@etsy.com";
+		String password = "hersecret";
+		
+		try {
+			User user = loginAction.login(email, password);
+			fail("Exception was not thrown");
+			
+		}catch(Exception e) {
+			PowerMockito.verifyStatic(times(1));
+			User.login(email, password);
+		}
+	}	
 
 }
