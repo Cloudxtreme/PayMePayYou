@@ -1,0 +1,35 @@
+#{extends 'main.html' /}
+#{set title:'PayMePayYou - Signup' /}
+
+<div id="wrapper">
+    <div id="header">
+		<img src="@{'/public/images/logo2.png'}" alt="" />
+	</div>
+
+	#{if flash.error }
+		<div id="flash">${flash?.error}</div>
+	#{/if}
+	<div id="formpanel">
+		<div id="loginForm" class="miniform">
+			<h2>Login</h2>
+			#{form @Login.loginUser()}
+				#{field 'email'}
+        			<p>					
+						<label for="user.email" class="inputLabel">Email:</label>
+						<input type="text" id="email" name="email" value="${email}" class="${field.errorClass}"/>
+						<span class="error">${field.error}</span>
+					</p>						
+				#{/field}					
+				#{field 'password'}
+        			<p>					
+						<label for="password" class="inputLabel">Password:</label>
+						<input type="password" id="password" name="password" class="${field.errorClass}"/>
+						<span class="error">${field.error}</span>
+					</p>						
+				#{/field}						
+				<input type="submit" name="Login" value="Start sharing"></input>	
+			#{/form}
+		</div>
+	</div>
+</div>
+
