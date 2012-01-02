@@ -22,26 +22,31 @@ public class UserTest extends UnitTest {
         Fixtures.deleteDatabase();
 		Validation.clear();        
 		account = new Account("myAccount");
-		user = new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+		user = getDummyUser(account);
 		account.addUser(user);
 		account.save();
-    }	
+    }
+
+	User getDummyUser(Account account) {
+		return new User("rahulj51@gmail.com", "secret", "Rahul Jain", account, true);
+	}	
 	
 	@Test
 	public void userCanBeCreated() {
-		User rahul = User.find("byEmail", "rahulj51@gmail.com").first();
+		//created already in setup. check if exists
+		User rahul = User.find("byEmail", user.email).first();
 		
 		assertNotNull(rahul);
-		assertEquals("rahulj51@gmail.com", rahul.email);
+		assertEquals(user.email, rahul.email);
 	}
 	
 	@Test
 	public void validExistingUserCanLogin() {
 		
-		User rahul = User.login("rahulj51@gmail.com", "secret");
+		User rahul = User.login(user.email, user.password);
 		
 		assertNotNull(rahul);
-		assertEquals("rahulj51@gmail.com", rahul.email);		
+		assertEquals(user.email, rahul.email);		
 		
 	}
 	
@@ -60,7 +65,7 @@ public class UserTest extends UnitTest {
 		account.save();
 		
 		
-		assertNull(User.find("byEmail", "rahulj51@gmail.com").first());
+		assertNull(User.find("byEmail", user.email).first());
 		assertEquals(0, User.count());
 	}
 	
@@ -72,104 +77,85 @@ public class UserTest extends UnitTest {
 		
 		account.save();
 		
-		User rahul = User.find("byEmail", "rahulj51@gmail.com").first();
+		User rahul = User.find("byEmail", user.email).first();
 		
 		assertFalse(rahul.isAdmin);
-		assertEquals("notsoSecretAnymore", rahul.password);
+		assertEquals(user.password, rahul.password);
 	}
 	
 	
 	@Test
 	public void fullNameIsMandatory() {
-		user = new User("rahulj51@gmail.com", "secret", null, account, true);
-		ValidationResult res = Validation.current().valid(user);
-		assertFalse(res.ok);
-        assertNotNull(Validation.errors(".fullName"));
-        play.data.validation.Error error = Validation.errors(".fullName").get(0);
-        assertEquals("Full Name is required", error.message());	
+		user.fullName = null;
+
+        assertUserFieldValidation(".fullName", "Full Name is required");
 	}
 	
 	@Test
 	public void fullNameMiniumLength() {
-		user = new User("rahulj51@gmail.com", "secret", "rj", account, true);
-		ValidationResult res = Validation.current().valid(user);
-		assertFalse(res.ok);
-        assertNotNull(Validation.errors(".fullName"));
-        play.data.validation.Error error = Validation.errors(".fullName").get(0);
-        assertEquals("Minimum size is 3", error.message());	
+		user.fullName = "rj";
+
+        assertUserFieldValidation(".fullName", "Minimum size is 3");
 	}	
 	
 	@Test
 	public void fullNameMaximumLength() {
-		String name = "somethinglargerthansixtycharacters somethinglargerthansixtycharacters somethinglargerthansixtycharacters";
-		user = new User("rahulj51@gmail.com", "secret", name, account, true);
-		ValidationResult res = Validation.current().valid(user);
-		assertFalse(res.ok);
-        assertNotNull(Validation.errors(".fullName"));
-        play.data.validation.Error error = Validation.errors(".fullName").get(0);
-        assertEquals("Maximum size is 60", error.message());	
+		user.fullName  = "somethinglargerthansixtycharacters somethinglargerthansixtycharacters somethinglargerthansixtycharacters";
+	
+        assertUserFieldValidation(".fullName", "Maximum size is 60");
 	}		
 	
 	@Test
 	public void emailIsMandatory() {
-		user = new User(null, "secret", "Rahul Jain", account, true);
-		ValidationResult res = Validation.current().valid(user);
-		assertFalse(res.ok);
-        assertNotNull(Validation.errors(".email"));
-        play.data.validation.Error error = Validation.errors(".email").get(0);
-        assertEquals("Email address is required", error.message());	
+		user.email = null;
+		
+        assertUserFieldValidation(".email", "Email address is required");
 	}		
 	
 	@Test
 	public void invalidEmailIdISNotAllowed() {
-		user = new User("rahulj51gmail.com", "secret", "rj", account, true);
-		ValidationResult res = Validation.current().valid(user);
-		assertFalse(res.ok);
-        assertNotNull(Validation.errors(".email"));
-        play.data.validation.Error error = Validation.errors(".email").get(0);
-        assertEquals("Invalid email address", error.message());	
+		user.email = "rahulj51gmail.com";
+		
+        assertUserFieldValidation(".email", "Invalid email address");	
 	}		
 	
 	@Test
 	public void passwordIsMandatory() {
-		user = new User("rahulj51@gmail.com", "", "Rahul Jain", account, true);
-		ValidationResult res = Validation.current().valid(user);
-		assertFalse(res.ok);
-        assertNotNull(Validation.errors(".password"));
-        play.data.validation.Error error = Validation.errors(".password").get(0);
-        assertEquals("Password is required", error.message());	
+		user.password = null;
+		
+		assertUserFieldValidation(".password", "Password is required");	
 	}
 	
 	@Test
 	public void passwordMiniumLength() {
-		user = new User("rahulj51@gmail.com", "sec", "rahul jain", account, true);
-		ValidationResult res = Validation.current().valid(user);
-		assertFalse(res.ok);
-        assertNotNull(Validation.errors(".password"));
-        play.data.validation.Error error = Validation.errors(".password").get(0);
-        assertEquals("Minimum size is 5", error.message());	
+		user.password = "sec";
+		
+        assertUserFieldValidation(".password", "Minimum size is 5");
 	}	
 	
 	@Test
 	public void passwordMaximumLength() {
-		String password = "somethinglargerthantwentycharacters";
-		user = new User("rahulj51@gmail.com", password, "rahul jain", account, true);
-		ValidationResult res = Validation.current().valid(user);
-		assertFalse(res.ok);
-        assertNotNull(Validation.errors(".password"));
-        play.data.validation.Error error = Validation.errors(".password").get(0);
-        assertEquals("Maximum size is 20", error.message());	
+		user.password = "somethinglargerthantwentycharacters";
+
+        assertUserFieldValidation(".password", "Maximum size is 20");
 	}			
 
 	
 	@Test
 	public void passwordShouldOnlyBeAlphaNumeric() {
-		String password = "specialCharacter$";
-		user = new User("rahulj51@gmail.com", password, "rahul jain", account, true);
+		user.password = "specialCharacter$";
+		
+		assertUserFieldValidation(".password", "Password can only contain alphabets or numbers");
+	
+	}		
+	
+	
+	private  void assertUserFieldValidation(String field, String message) {
+		
 		ValidationResult res = Validation.current().valid(user);
 		assertFalse(res.ok);
-        assertNotNull(Validation.errors(".password"));
-        play.data.validation.Error error = Validation.errors(".password").get(0);
-        assertEquals("Password can only contain alphabets or numbers", error.message());	
-	}		
+        assertNotNull(Validation.errors(field));
+        play.data.validation.Error error = Validation.errors(field).get(0);
+        assertEquals(message, error.message());		
+	}
 }
