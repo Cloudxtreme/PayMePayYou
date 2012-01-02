@@ -45,17 +45,14 @@ public class SignUpFunctionalTest extends FunctionalTest {
 	@Test
 	public void testThatValidNewUserIsSuccessFullyRegistered() {
 		
-		Map<String, String> parameters = new HashMap();
-		parameters.put("user.fullName", "Rahul Jain");
-		parameters.put("user.email", "joeblog@gmail.com");
-		parameters.put("user.password", "secret");
-		parameters.put("user.isAdmin", "true");
+		Map<String, String> parameters = getDummyInputParameters();
+		
 		Response response = POST("/signup/signupuser", parameters);
         assertIsOk(response);
 		
-		User rahul = User.find("byEmail", "joeblog@gmail.com").first();
+		User rahul = User.find("byEmail", parameters.get("user.email")).first();
 		assertNotNull(rahul);
-		assertEquals("Rahul Jain", rahul.fullName);
+		assertEquals(parameters.get("user.fullName"), rahul.fullName);
 		
 		assertNotNull(rahul.account);
 		assertEquals("Account of " + rahul.fullName, rahul.account.name);
@@ -64,15 +61,15 @@ public class SignUpFunctionalTest extends FunctionalTest {
 		assertEquals("Default Pool", rahul.account.expensePools.get(0).name);
 		
 	}
+
+
 	
 	@Test
 	public void testThatAnExistingUserCanNotRegister() {
 		
-		Map<String, String> parameters = new HashMap();
-		parameters.put("user.fullName", "Rahul Jain");
-		parameters.put("user.email", "rahulj51@gmail.com");
-		parameters.put("user.password", "secret2");
-		parameters.put("user.isAdmin", "true");
+		Map<String, String> parameters = getDummyInputParameters();
+		parameters.put("user.email", "rahulj51@gmail.com"); //existing user
+
 		Response response = POST("/signup/signupuser", parameters); 
         assertStatus(Http.StatusCode.FOUND, response);
         String flash = response.cookies.get("PLAY_FLASH").value;
@@ -83,36 +80,18 @@ public class SignUpFunctionalTest extends FunctionalTest {
 	}	
 	
 	
-	//@Test
-	/*
-	 * nt yet clear how to read validaiton messages here.
-	 */
-	public void testMissingFullNameSignupFails() {
+	@Test
+	public void testValidationFailureRedirectsToIndexWithValidationErrors() {
 		
-		Map<String, String> parameters = new HashMap();
-		parameters.put("user.email", "rahulj51@gmail.com");
-		parameters.put("user.password", "secret2");
-		parameters.put("user.isAdmin", "true");
+		Map<String, String> parameters = getDummyInputParameters();
+		parameters.remove("user.fullName");
+
 		Response response = POST("/signup/signupuser", parameters); 
-        System.out.println(Validation.current().errorsMap());
-        System.out.println(response.cookies);
-        String flash = response.cookies.get("PLAY_FLASH").value;
-        String message = Utils.urlDecodePath(replacePlusWithSpace(flash));
-        System.out.println(message);        
         
         String error = response.cookies.get("PLAY_ERRORS").value;
-        System.out.println(error);
-        System.out.println(replacePlusWithSpace(error));
-        message = Utils.urlDecodePath(replacePlusWithSpace(error));
-        System.out.println(message);    
-        
-        
+        String message = Utils.urlDecodePath(replacePlusWithSpace(error));
+        assertTrue(message.length() >= 0);
         assertStatus(Http.StatusCode.FOUND, response);
-
-
-
-        //assertEquals("error:User rahulj51@gmail.com already exists", message.trim());		
-		
 	}
 	
 	
@@ -122,5 +101,15 @@ public class SignUpFunctionalTest extends FunctionalTest {
 		
 	}
 	
+	
+	Map<String, String> getDummyInputParameters() {
+		Map<String, String> parameters = new HashMap<String, String>();
+		parameters.put("user.fullName", "Rahul Jain");
+		parameters.put("user.email", "joeblog@gmail.com");
+		parameters.put("user.password", "secret");
+		parameters.put("user.isAdmin", "true");
+		
+		return parameters;
+	}	
 
 }
