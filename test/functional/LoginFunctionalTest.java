@@ -64,8 +64,34 @@ public class LoginFunctionalTest extends BaseFunctionalTest {
         
         //error flashed
         assertCookieContains("PLAY_FLASH", "Invalid user id or password", response);        
-        
 	}
+	
+	
+	@Test
+	public void testThatEmailIdIsRequiredForLogin() {
+		
+		Map<String, String> parameters = getDummyInputParameters();
+		parameters.remove("email");
+		
+		Response response = POST("/login/loginuser", parameters);
+        assertStatus(Http.StatusCode.FOUND, response);
+        
+        //error flashed
+        assertCookieContains("PLAY_ERRORS", "email", response);        
+	}	
+	
+	@Test
+	public void testThatPasswordIsRequiredForLogin() {
+		
+		Map<String, String> parameters = getDummyInputParameters();
+		parameters.remove("password");
+		
+		Response response = POST("/login/loginuser", parameters);
+        assertStatus(Http.StatusCode.FOUND, response);
+        
+        //error flashed
+        assertCookieContains("PLAY_ERRORS", "password", response);        
+	}	
 
 	Map<String, String> getDummyInputParameters() {
 		Map<String, String> parameters = new HashMap<String, String>();
