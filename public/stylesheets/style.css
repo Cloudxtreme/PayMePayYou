@@ -57,7 +57,7 @@ body {
 }
 
 
-#loginForm {
+.miniform {
 	margin: auto;
 	top: 5%;
 	position:relative;
@@ -67,7 +67,7 @@ body {
 	
 }
 
-#loginForm h2 {
+.miniform h2 {
 	margin: 10px 10px 5px 10px;
 	display:block;
 	width: 95%;
