@@ -16,7 +16,7 @@
     // Open the home page, and check that no error occured
     open('/signup')
     waitForPageToLoad(1000)
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('Full Name is required')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
@@ -27,7 +27,7 @@
     open('/signup')
     waitForPageToLoad(1000)
     type('user.fullName','ab')
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('Minimum size is 3')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
@@ -38,7 +38,7 @@
     open('/signup')
     waitForPageToLoad(1000)
     type('user.fullName','somethinglargerthansixtycharacters somethinglargerthansixtycharacters somethinglargerthansixtycharacters')
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('Maximum size is 60')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
@@ -48,7 +48,7 @@
     // Open the home page, and check that no error occured
     open('/signup')
     waitForPageToLoad(1000)
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('Password is required')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
@@ -59,7 +59,7 @@
     open('/signup')
     waitForPageToLoad(1000)
     type('user.password','ab')
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('Minimum size is 5')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
@@ -70,7 +70,7 @@
     open('/signup')
     waitForPageToLoad(1000)
     type('user.password','somethinglargerthantwentycharacters')
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('Maximum size is 20')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
@@ -81,7 +81,7 @@
     open('/signup')
     waitForPageToLoad(1000)
     type('user.password','$ecretc@de')
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('Password can only contain alphabets or numbers')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
@@ -91,7 +91,7 @@
     // Open the home page, and check that no error occured
     open('/signup')
     waitForPageToLoad(1000)
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('Email address is required')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
@@ -102,7 +102,7 @@
     open('/signup')
     waitForPageToLoad(1000)
     type('user.email','invalidemail.com')
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('Invalid email address')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
@@ -115,7 +115,7 @@
     type('user.fullName', 'Rahul Jain')
     type('user.email','rahulj51@gmail.com')
     type('user.password','something')
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('User rahulj51@gmail.com already exists')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
@@ -128,7 +128,7 @@
     type('user.fullName', 'Dorian Gray')
     type('user.email','dorain@ow.com')
     type('user.password','picture')
-    clickAndWait('Login')
+    clickAndWait('signup')
     assertTextPresent('Congratulations!')
     assertTitle('PayMePayYou - Signup Success')    
 #{/selenium}
