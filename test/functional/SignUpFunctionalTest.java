@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import play.data.validation.Validation;
+import play.mvc.Http;
 import play.mvc.Http.Response;
 import play.mvc.Scope.Flash;
 import play.test.Fixtures;
@@ -79,6 +81,40 @@ public class SignUpFunctionalTest extends FunctionalTest {
         assertEquals("error:User rahulj51@gmail.com already exists", message.trim());
 		
 	}	
+	
+	
+	//@Test
+	/*
+	 * nt yet clear how to read validaiton messages here.
+	 */
+	public void testMissingFullNameSignupFails() {
+		
+		Map<String, String> parameters = new HashMap();
+		parameters.put("user.email", "rahulj51@gmail.com");
+		parameters.put("user.password", "secret2");
+		parameters.put("user.isAdmin", "true");
+		Response response = POST("/signup/signupuser", parameters); 
+        System.out.println(Validation.current().errorsMap());
+        System.out.println(response.cookies);
+        String flash = response.cookies.get("PLAY_FLASH").value;
+        String message = Utils.urlDecodePath(replacePlusWithSpace(flash));
+        System.out.println(message);        
+        
+        String error = response.cookies.get("PLAY_ERRORS").value;
+        System.out.println(error);
+        System.out.println(replacePlusWithSpace(error));
+        message = Utils.urlDecodePath(replacePlusWithSpace(error));
+        System.out.println(message);    
+        
+        
+        assertStatus(Http.StatusCode.FOUND, response);
+
+
+
+        //assertEquals("error:User rahulj51@gmail.com already exists", message.trim());		
+		
+	}
+	
 	
 	private String replacePlusWithSpace(String s) {
 		

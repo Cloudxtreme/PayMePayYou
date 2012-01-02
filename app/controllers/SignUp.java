@@ -16,6 +16,14 @@ public class SignUp extends Controller {
     public static void signupUser(@Valid User user) {
     	
     	System.out.println("called with " + user);
+    	
+        if(validation.hasErrors()) {
+        	System.out.println("validation errors" + validation.errorsMap());
+            params.flash(); 
+            validation.keep(); 
+            index();
+        }    	
+    	
     	SignUpAction signUpAction = new SignUpAction(new AccountBuilder(), new ExpensePoolBuilder());
     	
     	try

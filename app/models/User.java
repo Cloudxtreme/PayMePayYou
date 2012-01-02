@@ -21,7 +21,7 @@ public class User extends Model {
 	@Required
 	@MinSize(5)
 	@MaxSize(20)
-	@Match("[A-Za-z0-9]")  //modify later
+	@Match(value="[A-Za-z0-9]*", message="Password can only contain alphabets or numbers")
 	public String password;
 	
 	private String hash;
