@@ -58,8 +58,8 @@ public class ExpenseDetailTest extends UnitTest {
 		Expense expense  = pool.expenses.get(0);
 		ExpenseDetail expenseDetail = expense.expenseDetails.get(0);
 		
-		assertEquals(10.0d, expenseDetail.contribution, 0.000001);
-		assertEquals(0.0d, expenseDetail.due, 0.000001);
+		assertEquals(this.expenseDetail.contribution, expenseDetail.contribution, 0.000001);
+		assertEquals(this.expenseDetail.due, expenseDetail.due, 0.000001);
     }	
 	
     
@@ -92,6 +92,7 @@ public class ExpenseDetailTest extends UnitTest {
 		account.save();
 		
 		ExpenseDetail exDetail = ExpenseDetail.findById(expenseDetailId);
-		assertEquals(20.0d, exDetail.contribution, 0.000001);
+		assertEquals(expenseDetail.contribution, exDetail.contribution, 0.000001);
+		assertEquals(expenseDetail.due, exDetail.due, 0.000001);
 	}	
 }
