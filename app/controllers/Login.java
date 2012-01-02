@@ -15,7 +15,7 @@ public class Login extends Controller {
     	render(email, password);
     }	
     
-    public static void loginUser(@Required(message="Password is required") 
+    public static void loginUser(@Required(message="Email address is required") 
     							String email,
     							
     							@Required(message="Password is required")
