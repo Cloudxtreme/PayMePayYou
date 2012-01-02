@@ -39,8 +39,6 @@ public class SignUpAction {
     		ExpensePool newExpensePool = expensePoolBuilder.build();
     		newExpensePool.account = newAccount;
     		newAccount.expensePools.add(newExpensePool);
-    		
-    		System.out.println("saving...");
     		return newAccount.save();
     	}
     }	
