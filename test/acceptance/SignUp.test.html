@@ -106,3 +106,29 @@
     assertTextPresent('Invalid email address')
     assertTitle('PayMePayYou - Signup')    
 #{/selenium}
+
+#{selenium 'existing user'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    type('user.fullName', 'Rahul Jain')
+    type('user.email','rahulj51@gmail.com')
+    type('user.password','something')
+    clickAndWait('Login')
+    assertTextPresent('User rahulj51@gmail.com already exists')
+    assertTitle('PayMePayYou - Signup')    
+#{/selenium}
+
+#{selenium 'valid signup'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    type('user.fullName', 'Dorian Gray')
+    type('user.email','dorain@ow.com')
+    type('user.password','picture')
+    clickAndWait('Login')
+    assertTextPresent('Congratulations!')
+    assertTitle('PayMePayYou - Signup Success')    
+#{/selenium}

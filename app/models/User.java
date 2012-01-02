@@ -14,11 +14,11 @@ import play.db.jpa.Model;
 @Entity
 public class User extends Model {
 
-	@Required
+	@Required(message="Email address is required")
 	@Email
 	public String email;
 	
-	@Required
+	@Required(message="Password is required")
 	@MinSize(5)
 	@MaxSize(20)
 	@Match(value="[A-Za-z0-9]*", message="Password can only contain alphabets or numbers")

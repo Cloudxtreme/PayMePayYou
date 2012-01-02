@@ -74,11 +74,11 @@ public class SignUpFunctionalTest extends FunctionalTest {
 		parameters.put("user.password", "secret2");
 		parameters.put("user.isAdmin", "true");
 		Response response = POST("/signup/signupuser", parameters); 
-        assertIsOk(response);
+        assertStatus(Http.StatusCode.FOUND, response);
         String flash = response.cookies.get("PLAY_FLASH").value;
         String message = Utils.urlDecodePath(replacePlusWithSpace(flash));
 
-        assertEquals("error:User rahulj51@gmail.com already exists", message.trim());
+        assertTrue(message.trim().indexOf("error:User rahulj51@gmail.com already exists") >= 0);
 		
 	}	
 	

@@ -86,7 +86,7 @@ public class UserTest extends UnitTest {
 		assertFalse(res.ok);
         assertNotNull(Validation.errors(".fullName"));
         play.data.validation.Error error = Validation.errors(".fullName").get(0);
-        assertEquals("Required", error.message());	
+        assertEquals("Full Name is required", error.message());	
 	}
 	
 	@Test
@@ -117,7 +117,7 @@ public class UserTest extends UnitTest {
 		assertFalse(res.ok);
         assertNotNull(Validation.errors(".email"));
         play.data.validation.Error error = Validation.errors(".email").get(0);
-        assertEquals("Required", error.message());	
+        assertEquals("Email address is required", error.message());	
 	}		
 	
 	@Test
@@ -137,7 +137,7 @@ public class UserTest extends UnitTest {
 		assertFalse(res.ok);
         assertNotNull(Validation.errors(".password"));
         play.data.validation.Error error = Validation.errors(".password").get(0);
-        assertEquals("Required", error.message());	
+        assertEquals("Password is required", error.message());	
 	}
 	
 	@Test
