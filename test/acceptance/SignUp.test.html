@@ -1,8 +1,12 @@
 *{ You can use plain selenium command using the selenium tag }*
 
+#{fixture delete:'all', load:'functional/test-data.yml' /}
+
 #{selenium}
+    clearSession()
     // Open the home page, and check that no error occured
     open('/signup')
+    waitForPageToLoad(1000)
     assertNotTitle('Application error')
     assertTitle('PayMePayYou - Signup')
 #{/selenium}
