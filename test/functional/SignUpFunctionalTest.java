@@ -15,11 +15,10 @@ import play.mvc.Http;
 import play.mvc.Http.Response;
 import play.mvc.Scope.Flash;
 import play.test.Fixtures;
-import play.test.FunctionalTest;
 import play.utils.Utils;
 
 
-public class SignUpFunctionalTest extends FunctionalTest {
+public class SignUpFunctionalTest extends BaseFunctionalTest {
 
 	@Before
 	public void setup() {
@@ -72,11 +71,8 @@ public class SignUpFunctionalTest extends FunctionalTest {
 
 		Response response = POST("/signup/signupuser", parameters); 
         assertStatus(Http.StatusCode.FOUND, response);
-        String flash = response.cookies.get("PLAY_FLASH").value;
-        String message = Utils.urlDecodePath(replacePlusWithSpace(flash));
-
-        assertTrue(message.trim().indexOf("error:User rahulj51@gmail.com already exists") >= 0);
-		
+        
+        assertCookieContains("PLAY_FLASH", "error:User rahulj51@gmail.com already exists", response);
 	}	
 	
 	
@@ -88,17 +84,9 @@ public class SignUpFunctionalTest extends FunctionalTest {
 
 		Response response = POST("/signup/signupuser", parameters); 
         
-        String error = response.cookies.get("PLAY_ERRORS").value;
-        String message = Utils.urlDecodePath(replacePlusWithSpace(error));
-        assertTrue(message.length() >= 0);
+        assertCookieContains("PLAY_ERRORS", "user.fullName", response);		
+
         assertStatus(Http.StatusCode.FOUND, response);
-	}
-	
-	
-	private String replacePlusWithSpace(String s) {
-		
-		return s.replaceAll("\\+", " ");
-		
 	}
 	
 	
