@@ -43,7 +43,7 @@ public class ExpensePoolTest extends UnitTest {
     	
 		Account savedAccount = Account.findById(account.id);
 		assertEquals(1, savedAccount.expensePools.size());
-		assertEquals("dailyExpenses", savedAccount.expensePools.get(0).name);
+		assertEquals(expensePool.name, savedAccount.expensePools.get(0).name);
     }
     
 	@Test
@@ -69,7 +69,7 @@ public class ExpensePoolTest extends UnitTest {
 		account.save();
 		
 		ExpensePool savedPool = ExpensePool.findById(poolId);
-		assertEquals("tripToRome", savedPool.name);
+		assertEquals(expensePool.name, savedPool.name);
 	}		
 
 }

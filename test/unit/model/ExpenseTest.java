@@ -46,11 +46,11 @@ public class ExpenseTest extends UnitTest {
 
     @Test
     public void ExpenseCanBeCreated() {
-    	
+    	//created in setup. check for existence
 		Account savedAccount = Account.findById(account.id);
 		ExpensePool pool = savedAccount.expensePools.get(0);
 		assertEquals(1, pool.expenses.size());
-		assertEquals("Apple Store", pool.expenses.get(0).name);
+		assertEquals(expense.name, pool.expenses.get(0).name);
     }
     
     @Test
@@ -80,7 +80,7 @@ public class ExpenseTest extends UnitTest {
 		account.save();
 		
 		Expense ex = Expense.findById(expenseId);
-		assertEquals("Android Store", ex.name);
-		assertEquals(20.0d, ex.amount, 0.000001);
+		assertEquals(expense.name, ex.name);
+		assertEquals(expense.amount, ex.amount, 0.000001);
 	}		
 }
