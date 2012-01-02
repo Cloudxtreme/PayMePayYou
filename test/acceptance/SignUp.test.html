@@ -11,11 +11,98 @@
     assertTitle('PayMePayYou - Signup')
 #{/selenium}
 
-#{selenium 'missing user name'}
+#{selenium 'missing full name'}
     clearSession()
     // Open the home page, and check that no error occured
     open('/signup')
     waitForPageToLoad(1000)
     clickAndWait('Login')
     assertTextPresent('Full Name is required')
+    assertTitle('PayMePayYou - Signup')    
+#{/selenium}
+
+#{selenium 'very short user name'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    type('user.fullName','ab')
+    clickAndWait('Login')
+    assertTextPresent('Minimum size is 3')
+    assertTitle('PayMePayYou - Signup')    
+#{/selenium}
+
+#{selenium 'very long user name'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    type('user.fullName','somethinglargerthansixtycharacters somethinglargerthansixtycharacters somethinglargerthansixtycharacters')
+    clickAndWait('Login')
+    assertTextPresent('Maximum size is 60')
+    assertTitle('PayMePayYou - Signup')    
+#{/selenium}
+
+#{selenium 'missing password'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    clickAndWait('Login')
+    assertTextPresent('Password is required')
+    assertTitle('PayMePayYou - Signup')    
+#{/selenium}
+
+#{selenium 'very short password'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    type('user.password','ab')
+    clickAndWait('Login')
+    assertTextPresent('Minimum size is 5')
+    assertTitle('PayMePayYou - Signup')    
+#{/selenium}
+
+#{selenium 'very long password'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    type('user.password','somethinglargerthantwentycharacters')
+    clickAndWait('Login')
+    assertTextPresent('Maximum size is 20')
+    assertTitle('PayMePayYou - Signup')    
+#{/selenium}
+
+#{selenium 'invalid password'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    type('user.password','$ecretc@de')
+    clickAndWait('Login')
+    assertTextPresent('Password can only contain alphabets or numbers')
+    assertTitle('PayMePayYou - Signup')    
+#{/selenium}
+
+#{selenium 'missing email address'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    clickAndWait('Login')
+    assertTextPresent('Email address is required')
+    assertTitle('PayMePayYou - Signup')    
+#{/selenium}
+
+#{selenium 'invalid email'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    type('user.email','invalidemail.com')
+    clickAndWait('Login')
+    assertTextPresent('Invalid email address')
+    assertTitle('PayMePayYou - Signup')    
 #{/selenium}
