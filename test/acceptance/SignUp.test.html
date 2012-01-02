@@ -2,11 +2,20 @@
 
 #{fixture delete:'all', load:'functional/test-data.yml' /}
 
-#{selenium}
+#{selenium 'check signup page'}
     clearSession()
     // Open the home page, and check that no error occured
     open('/signup')
     waitForPageToLoad(1000)
     assertNotTitle('Application error')
     assertTitle('PayMePayYou - Signup')
+#{/selenium}
+
+#{selenium 'missing user name'}
+    clearSession()
+    // Open the home page, and check that no error occured
+    open('/signup')
+    waitForPageToLoad(1000)
+    clickAndWait('Login')
+    assertTextPresent('Full Name is required')
 #{/selenium}

@@ -22,7 +22,6 @@ public class SignUp extends Controller {
             params.flash(); 
             validation.keep(); 
             index(user);
-            //render("@index",user);
         }    	
     	
     	SignUpAction signUpAction = new SignUpAction(new AccountBuilder(), new ExpensePoolBuilder());

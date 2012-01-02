@@ -26,7 +26,7 @@ public class User extends Model {
 	
 	private String hash;
 	
-	@Required
+	@Required(message="Full Name is required")
 	@MinSize(3)
 	@MaxSize(60)
 	public String fullName;
