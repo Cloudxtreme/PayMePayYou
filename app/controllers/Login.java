@@ -37,7 +37,7 @@ public class Login extends Controller {
             addToSession(user);
             flash.success("Welcome, " + user.fullName);    	
             
-            render("Login/success.html");
+            render("Dashboard/index.html", user);
             
     	} catch (Exception e) {
     		e.printStackTrace();
