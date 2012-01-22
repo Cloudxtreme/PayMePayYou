@@ -3,10 +3,14 @@
 /*  border:solid 2px;  */    /* remove later */
 }
 body {
+
 	margin: 0;
-	background : #f1e6ff;
-	font-family: verdana, sans-serif;
-	font-size: 0.85em;
+	/*background : #D2FEFF;*/
+	/*background: #8CC8BC url(../images/bg22.png) repeat-x;*/
+	/*background: -webkit-radial-gradient(70% 70%, circle cover, #26c190 0%,#2be5d9 50%,#21cec8 51%,#86f9e8 100%);*/
+	background: -webkit-radial-gradient(80% 80%, circle cover, #2dbabf 0%,#26c190 17%,#24bfa0 50%,#22cca4 65%,#6bc6b6 100%); 
+	/* font-family: "Helvetica Neue",Arial,Helvetica, sans-serif; */
+	font-size: 0.85em;	
 
 }
 
