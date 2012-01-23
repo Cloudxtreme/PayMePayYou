@@ -21,6 +21,7 @@ public class SignUp extends Controller {
         	System.out.println("validation errors" + validation.errorsMap());
             params.flash(); 
             validation.keep(); 
+            user.password = null;
             index(user);
         }    	
     	
@@ -35,6 +36,7 @@ public class SignUp extends Controller {
     		flash.error(e.getMessage());
             params.flash();
             validation.keep(); 
+            user.password = null;
             index(user);
     	}
     }

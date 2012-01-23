@@ -18,9 +18,19 @@ User(jay):
     isAdmin: false
     account: rahulAccount
     
+User(liz):
+    email: liz.lemon@gmail.com
+    password: secret
+    fullName: Liz Lemon
+    isAdmin: false
+    account: rahulAccount    
 
 ExpensePool(default):
     name: My default Pool
+    account: rahulAccount    
+    
+ExpensePool(secondary):
+    name: Secondary Pool
     account: rahulAccount    
             
      

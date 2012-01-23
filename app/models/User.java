@@ -38,6 +38,10 @@ public class User extends Model {
 	public Account account;
 	
 
+	public User() {
+		
+	}
+	
 	public User(String email, String password,String fullName,boolean isAdmin) {
 		super();
 		this.email = email;

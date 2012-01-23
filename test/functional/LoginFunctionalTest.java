@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import controllers.Login;
+
 import play.mvc.Http;
 import play.mvc.Http.Response;
 import play.test.Fixtures;
@@ -44,13 +46,12 @@ public class LoginFunctionalTest extends BaseFunctionalTest {
 		Map<String, String> parameters = getDummyInputParameters();
 		
 		Response response = POST("/login/loginuser", parameters);
-        assertIsOk(response);
+        assertStatus(Http.StatusCode.FOUND, response);
         
         //success flashed
         assertCookieContains("PLAY_FLASH", "Welcome,", response);
         
-        //user details added to session
-        assertCookieContains("PLAY_SESSION", "user.id", response);
+        assertCookieContainsPositiveNumber(Login.DEFAULT_POOL_ID_COOKIE, response);
 	}
 	
 	@Test

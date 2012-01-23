@@ -10,21 +10,24 @@
 		<img src="/public/images/pmpy-2.png" alt="" />
 		<p class="greeting">Hello, ${user?.fullName}</p>
 		<ul id="nav">
-			<li><a href="index.html">Reports</a></li>
+			<li><a href="#">Reports</a></li>
 			<li><a href="#">Settings</a></li>
 			<li><a href="#">Logout</a></li>
 		</ul>
 	</div>
-	<div id="flash">Invalid userid or password.</div>
+	<div id="flash">
+		#{if flash.error }
+			${flash?.error}
+		#{/if}	
+	</div>
 	<div id="content">
 		<div class="list-panel">
 			<div class="box-panel">
 				<h3>Available Expense Pools</h3>
 				<ul id="pools-list">
-					<li><a href="#">Daily Expenses</a></li>
-					<li><a href="#">Trip to Andaman</a></li>
-					<li><a href="#">Joe's New Year party</a></li>
-					<li><a href="#">Joe's New Year party</a></li>
+					#{list items:user.account.expensePools, as:'expensePool'}
+					<li><a href="#">${expensePool.name}</a></li>
+					#{/list}
 				</ul>
 				<a class="addMore" href="#">Add More</a>
 			</div>
@@ -32,9 +35,11 @@
 			<div class="box-panel">
 				<h3>Friends</h3>
 				<ul id="users-list">
-					<li><a href="#">Jay</a></li>
-					<li><a href="#">Joy</a></li>
-					<li><a href="#">Joeasdajsdlkajsdl alsdjlajsdlk</a></li>
+					#{list items:user.account.users, as:'member'}
+						#{if member.id != user.id }
+							<li><a href="#">${member.fullName}</a></li>
+						#{/if}
+					#{/list}
 				</ul>
 				<a class="addMore" href="#">Add More</a>
 			</div>				
@@ -42,7 +47,7 @@
 		<div class="main-panel">
 		
 			<div id="expenses">
-				<h3>Daily Expenses</h3>
+				<h3>${defaultPool.name}</h3>
 				<div id="expenses-list">
 					<div class="day">
 						<p class="date">Jan 10th, 2012</p>

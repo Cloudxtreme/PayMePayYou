@@ -23,6 +23,9 @@ public class ExpensePool extends Model {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="expensePool",  orphanRemoval=true)
 	public List<Expense> expenses = new ArrayList<Expense>(0);
 	
+	public ExpensePool() {
+		
+	}
 
 	public ExpensePool(String name) {
 		super();

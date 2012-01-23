@@ -1,18 +1,20 @@
 package controllers;
 
+import models.ExpensePool;
+import models.Test22;
 import models.User;
-import play.data.validation.Email;
-import play.data.validation.Match;
-import play.data.validation.MaxSize;
-import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.mvc.Controller;
+import play.mvc.Http;
 import actions.LoginAction;
 
 public class Login extends Controller {
 	
-    public static void index(String email, String password) {
-    	render(email, password);
+    public static final String DEFAULT_POOL_ID_COOKIE = "defaultPoolId";
+
+
+	public static void index(String email) {
+    	render(email);
     }	
     
     public static void loginUser(@Required(message="Email address is required") 
@@ -27,24 +29,25 @@ public class Login extends Controller {
         	System.out.println("validation errors" + validation.errorsMap());    		
             params.flash(); 
             validation.keep(); 
-            index(email, password);    		
+            index(email);    		
     	}
     	
     	LoginAction loginAction = new LoginAction();
     	try {
     		User user = loginAction.login(email, password);
-    		
-            addToSession(user);
-            flash.success("Welcome, " + user.fullName);    	
+
+            ExpensePool defaultPool = setDefaultPoolInCookieIfNeeded(user);
             
-            render("Dashboard/index.html", user);
+            flash.success("Welcome, " + user.fullName);
+            
+            Dashboard.index(user.id, defaultPool.id);
             
     	} catch (Exception e) {
     		e.printStackTrace();
     		flash.error(e.getMessage());
             params.flash();
             validation.keep(); 
-            index(email, password);    		
+            index(email);    		
     	}
     	
     	
@@ -57,4 +60,24 @@ public class Login extends Controller {
 		session.put("user.id", user.id);
 	}
 
+	
+	private static ExpensePool setDefaultPoolInCookieIfNeeded(User user) {
+		
+		ExpensePool defaultPool = null;
+		String defaultPoolId = null;
+		Http.Cookie defaultPoolIdCookie = request.cookies.get(DEFAULT_POOL_ID_COOKIE);
+		
+		if (defaultPoolIdCookie == null) {
+			defaultPool = user.account.expensePools.get(0);
+			defaultPoolId = String.valueOf(defaultPool.id);
+			response.setCookie(DEFAULT_POOL_ID_COOKIE, defaultPoolId);
+		} else {
+			defaultPoolId = defaultPoolIdCookie.value;
+			defaultPool = ExpensePool.findById(Long.valueOf(defaultPoolId));
+		}
+		
+		return defaultPool;
+			
+	}
+	
 }

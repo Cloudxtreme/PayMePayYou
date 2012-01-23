@@ -12,10 +12,13 @@ GET     /favicon.ico                            404
 GET     /public/                                staticDir:public
 
 # Signup
-GET   /signup                                   SignUp.index
+*   /signup                                   SignUp.index
 
 # Login
-GET   /login                                    Login.index
+*   /login                                    Login.index
+
+#Dashboard
+POST  /Dashboard/index                         Dashboard.index
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}

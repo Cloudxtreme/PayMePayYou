@@ -22,5 +22,9 @@ User(jay):
 ExpensePool(default):
     name: Default Pool
     account: rahulAccount    
+    
+ExpensePool(secondary):
+    name: Secondary Pool
+    account: rahulAccount        
             
      

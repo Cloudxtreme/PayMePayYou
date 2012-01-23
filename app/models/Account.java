@@ -20,6 +20,10 @@ public class Account extends Model {
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="account", orphanRemoval=true)
 	public List<ExpensePool> expensePools = new ArrayList<ExpensePool>(0);
 
+	public Account() {
+		
+	}
+	
 	public Account(String name) {
 		super();
 		this.name = name;
