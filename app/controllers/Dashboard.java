@@ -12,7 +12,6 @@ public class Dashboard extends Controller {
     	
     	User user = User.findById(userId);
     	ExpensePool defaultPool = ExpensePool.findById(defaultPoolId);
-        System.out.println("we are herePPPPPPPPPPPPPPPPPPPPPPPPPP");
     	render(user, defaultPool);
     }
     
