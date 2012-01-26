@@ -31,6 +31,35 @@ ExpensePool(default):
     
 ExpensePool(secondary):
     name: Secondary Pool
-    account: rahulAccount    
-            
-     
+    account: rahulAccount
+
+
+Expense(e1):
+    name: Apple Store
+    amount: 30
+    date: 2011-12-25
+    expensePool: default
+    
+Expense(e2):
+    name: Comic Store
+    amount: 35
+    date: 2011-12-25
+    expensePool: default    
+          
+Expense(e3):
+    name: Etsy
+    amount: 350
+    date: 2011-12-25
+    expensePool: default    
+                
+Expense(e4):
+    name: Tickets
+    amount: 2500
+    date: 2012-01-26
+    expensePool: default          
+
+Expense(e5):
+    name: Rent
+    amount: 2700
+    date: 2012-01-26
+    expensePool: default

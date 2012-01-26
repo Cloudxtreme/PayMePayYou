@@ -5,6 +5,10 @@
         #{stylesheet 'dashboard.css' /}
 #{/set}
 
+%{
+	Map expensesByDate = selectedPool.getExpensesGroupedByDates();
+	
+}%
 <div id="wrapper">
     <div id="header">
 		<img src="/public/images/pmpy-2.png" alt="" />
@@ -47,8 +51,30 @@
 		<div class="main-panel">
 		
 			<div id="expenses">
-				<h3>${defaultPool.name}</h3>
+				<h3>${selectedPool.name}</h3>
 				<div id="expenses-list">
+					#{list items:selectedPool.getTransactionDatesSortedDesc(), as:'date'}
+						<div class="day">
+							<p class="date">${helpers.DateHelper.getSimpleFormatted(date)}</p>
+							<table>
+								%{ int rownum = 1; String rowClass = "odd"; }%
+								#{list items:expensesByDate.get(date), as:'expense'}
+									%{  if (rownum % 2 == 0){
+											rowClass = "even";
+										} else {
+											rowClass = "odd";
+										}	
+										rownum++;
+									}%
+									<tr class="${rowClass}">
+										<td class="spent-on">${expense.name}</td>
+										<td class="spent-by">${expense.getExpenseDetailsSummary()}</td>
+										<td class="amount">$${expense.amount}</td>										
+									</tr>
+								#{/list}
+							</table>
+						</div>
+					#{/list}
 					<div class="day">
 						<p class="date">Jan 10th, 2012</p>
 						<table>

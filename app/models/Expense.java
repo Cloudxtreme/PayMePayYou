@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,6 +23,8 @@ public class Expense extends Model {
 	
 	public double amount;
 	
+	public Date date;
+	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="expense", orphanRemoval=true)
 	public List<ExpenseDetail> expenseDetails = new ArrayList<ExpenseDetail>(0);
 
@@ -29,11 +32,12 @@ public class Expense extends Model {
 		
 	}
 	
-	public Expense(String name, ExpensePool pool, double amount) {
+	public Expense(String name, ExpensePool pool, Date date, double amount) {
 		super();
 		this.name = name;
 		this.expensePool = pool;
 		this.amount = amount;
+		this.date = date;
 	}
 	
 	public void addExpenseDetail(ExpenseDetail expenseDetail) {
@@ -43,5 +47,12 @@ public class Expense extends Model {
 	public boolean removeExpenseDetail(ExpenseDetail expenseDetail) {
 		return expenseDetails.remove(expenseDetail);
 	}	
+	
+	
+	public String getExpenseDetailsSummary() {
+		
+		return "Rahul > 2 people";
+		
+	}
 	
 }

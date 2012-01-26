@@ -1,5 +1,7 @@
 package unit.model;
 
+import java.util.Date;
+
 import models.Account;
 import models.Expense;
 import models.ExpensePool;
@@ -31,7 +33,7 @@ public class ExpenseTest extends UnitTest {
 		expensePool = new ExpensePool("dailyExpenses");
     	expensePool.account = account;
     	
-    	expense = new Expense("Apple Store", expensePool, 10.0d);
+    	expense = new Expense("Apple Store", expensePool, new Date(), 10.0d);
     	expensePool.addExpense(expense);
     	
     	account.addExpensePool(expensePool);

@@ -8,11 +8,11 @@ import play.mvc.Controller;
 public class Dashboard extends Controller {
 
 	
-    public static void index(long userId, long defaultPoolId) {
+    public static void index(long userId, long selectedPoolId) {
     	
     	User user = User.findById(userId);
-    	ExpensePool defaultPool = ExpensePool.findById(defaultPoolId);
-    	render(user, defaultPool);
+    	ExpensePool selectedPool = ExpensePool.findById(selectedPoolId);
+    	render(user, selectedPool);
     }
     
     

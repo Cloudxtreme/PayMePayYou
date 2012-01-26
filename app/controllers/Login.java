@@ -1,7 +1,6 @@
 package controllers;
 
 import models.ExpensePool;
-import models.Test22;
 import models.User;
 import play.data.validation.Required;
 import play.mvc.Controller;
