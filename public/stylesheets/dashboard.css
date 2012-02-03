@@ -305,6 +305,7 @@ body {
 
 .day table {
 	border-collapse: collapse;
+	width:100%;
 }
 
 .day table tr {
