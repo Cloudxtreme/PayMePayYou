@@ -30,7 +30,7 @@
 				<h3>Available Expense Pools</h3>
 				<ul id="pools-list">
 					#{list items:user.account.expensePools, as:'expensePool'}
-					<li><a href="#">${expensePool.name}</a></li>
+					<li>#{a @Dashboard.index(user.id, expensePool.id)}${expensePool.name}#{/a}</li>
 					#{/list}
 				</ul>
 				<a class="addMore" href="#">Add More</a>

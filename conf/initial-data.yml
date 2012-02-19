@@ -63,3 +63,28 @@ Expense(e5):
     amount: 2700
     date: 2012-01-26
     expensePool: default
+    
+Expense(e6):
+    name: sComic Store
+    amount: 35
+    date: 2011-12-25
+    expensePool: secondary    
+          
+Expense(e7):
+    name: sEtsy
+    amount: 350
+    date: 2011-12-25
+    expensePool: secondary    
+                
+Expense(e8):
+    name: sTickets
+    amount: 2500
+    date: 2012-01-26
+    expensePool: secondary          
+
+Expense(e9):
+    name: sRent
+    amount: 2700
+    date: 2012-01-26
+    expensePool: secondary
+    
