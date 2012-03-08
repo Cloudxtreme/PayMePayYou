@@ -52,6 +52,7 @@
 		
 			<div id="expenses">
 				<h3>${selectedPool.name}</h3>
+				<a class="addNew" href="#">+</a>
 				<div id="expenses-list">
 					#{list items:selectedPool.getTransactionDatesSortedDesc(), as:'date'}
 						<div class="day">
