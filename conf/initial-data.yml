@@ -26,11 +26,11 @@ User(liz):
     account: rahulAccount    
 
 ExpensePool(default):
-    name: My default Pool
+    name: My main expense Pool
     account: rahulAccount    
     
 ExpensePool(secondary):
-    name: Secondary Pool
+    name: Another Pool
     account: rahulAccount
 
 
